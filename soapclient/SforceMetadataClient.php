@@ -147,6 +147,55 @@ class SforceMetadataClient {
      
     return $this->sforce->delete($encodedObj);
   }  
+
+  public function createMetadata($obj)
+  {
+    $encodedObj = new stdClass();
+    $encodedObj->metadata = new SoapVar($obj, SOAP_ENC_OBJECT, $this->getObjtype($obj), $this->namespace);
+
+    return $this->sforce->createMetadata($encodedObj);
+  }
+
+  public function readMetadata($metadataType, $fullNames)
+  {
+    return $this->sforce->readMetadata((object)[
+        'type' => $metadataType,
+        'fullNames' => $fullNames,
+    ]);
+  }
+
+  public function updateMetadata($obj)
+  {
+    $encodedObj = new stdClass();
+    $encodedObj->metadata = new SoapVar($obj, SOAP_ENC_OBJECT, $this->getObjtype($obj), $this->namespace);
+
+    return $this->sforce->updateMetadata($encodedObj);
+  }
+
+  public function upsertMetadata($obj)
+  {
+    $encodedObj = new stdClass();
+    $encodedObj->metadata = new SoapVar($obj, SOAP_ENC_OBJECT, $this->getObjtype($obj), $this->namespace);
+
+    return $this->sforce->upsertMetadata($encodedObj);
+  }
+
+  public function deleteMetadata($metadataType, $fullNames)
+  {
+    return $this->sforce->deleteMetadata((object)[
+        'type' => $metadataType,
+        'fullNames' => $fullNames,
+    ]);
+  }
+
+  public function renameMetadata($metadataType, $oldFullName, $newFullName)
+  {
+    return $this->sforce->renameMetadata((object)[
+        'type' => $metadataType,
+        'oldFullName' => $oldFullName,
+        'newFullName' => $newFullName,
+    ]);
+  }
   
   public function checkStatus($ids) {
     return $this->sforce->checkStatus($ids);
